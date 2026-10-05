@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Qahwa & Co. Coffee Shop"
+version = "1.0.0"
+id = "artifacts/coffee-app"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21512
+
+[services.development]
+run = "pnpm --filter @workspace/coffee-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/coffee-app", "run", "build" ]
+publicDir = "artifacts/coffee-app/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21512"
+BASE_PATH = "/"
